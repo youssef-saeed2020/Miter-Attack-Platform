@@ -1,0 +1,95 @@
+<!-- app/templates/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded-lg mb-4">
+    <h1 class="display-4"><i class="fas fa-shield-alt text-primary"></i> MITRE ATT&CK Platform</h1>
+    <p class="lead">A comprehensive security analytics dashboard integrating the MITRE ATT&CK framework for enhanced threat detection and analysis.</p>
+    <hr class="my-4">
+    <p>Explore attack techniques, enrich security alerts, and conduct threat hunting operations with ATT&CK-powered insights.</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('main.dashboard') }}" role="button">
+        <i class="fas fa-rocket"></i> Get Started
+    </a>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-3 mb-4">
+        <div class="card technique-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-tachometer-alt fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Dashboard</h5>
+                <p class="card-text">Overview of ATT&CK techniques, tactics, and security metrics.</p>
+                <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-primary">View Dashboard</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card technique-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-list fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Techniques</h5>
+                <p class="card-text">Browse all MITRE ATT&CK techniques with detailed information and mitigations.</p>
+                <a href="{{ url_for('main.techniques') }}" class="btn btn-outline-success">Browse Techniques</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card technique-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-bell fa-3x text-warning mb-3"></i>
+                <h5 class="card-title">Alert Enrichment</h5>
+                <p class="card-text">Enrich security alerts with MITRE ATT&CK context and detection logic.</p>
+                <a href="{{ url_for('main.alert_enrichment') }}" class="btn btn-outline-warning">Enrich Alerts</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card technique-card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-search fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Threat Hunting</h5>
+                <p class="card-text">Proactively hunt for threats using ATT&CK-based hypotheses and queries.</p>
+                <a href="{{ url_for('main.threat_hunting') }}" class="btn btn-outline-info">Start Hunting</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb"></i> About MITRE ATT&CK</h5>
+            </div>
+            <div class="card-body">
+                <p>The MITRE ATT&CK framework is a globally accessible knowledge base of adversary tactics and techniques based on real-world observations.</p>
+                <ul>
+                    <li><strong>Tactics:</strong> The "why" - adversary's tactical goal</li>
+                    <li><strong>Techniques:</strong> The "how" - methods to achieve tactical goals</li>
+                    <li><strong>Sub-techniques:</strong> More specific descriptions of techniques</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Platform Features</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>Real-time technique browsing and search</li>
+                    <li>Security alert enrichment with ATT&CK context</li>
+                    <li>Threat hunting hypothesis generation</li>
+                    <li>Risk scoring and mitigation guidance</li>
+                    <li>Sample data for demonstration and testing</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

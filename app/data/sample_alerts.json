@@ -1,0 +1,502 @@
+[
+  {
+    "alert_id": "ALT-1000",
+    "timestamp": "2025-09-30T04:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #0",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.13",
+    "destination_ip": "10.0.0.120"
+  },
+  {
+    "alert_id": "ALT-1001",
+    "timestamp": "2025-09-29T17:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #1",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.78",
+    "destination_ip": "10.0.0.239"
+  },
+  {
+    "alert_id": "ALT-1002",
+    "timestamp": "2025-09-29T08:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #2",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.91",
+    "destination_ip": "10.0.0.114"
+  },
+  {
+    "alert_id": "ALT-1003",
+    "timestamp": "2025-09-29T05:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #3",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.222",
+    "destination_ip": "10.0.0.183"
+  },
+  {
+    "alert_id": "ALT-1004",
+    "timestamp": "2025-09-29T01:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #4",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.76",
+    "destination_ip": "10.0.0.13"
+  },
+  {
+    "alert_id": "ALT-1005",
+    "timestamp": "2025-09-29T21:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #5",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.90",
+    "destination_ip": "10.0.0.166"
+  },
+  {
+    "alert_id": "ALT-1006",
+    "timestamp": "2025-09-28T16:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #6",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.216",
+    "destination_ip": "10.0.0.17"
+  },
+  {
+    "alert_id": "ALT-1007",
+    "timestamp": "2025-09-30T08:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #7",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.56",
+    "destination_ip": "10.0.0.13"
+  },
+  {
+    "alert_id": "ALT-1008",
+    "timestamp": "2025-09-30T07:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #8",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.160",
+    "destination_ip": "10.0.0.127"
+  },
+  {
+    "alert_id": "ALT-1009",
+    "timestamp": "2025-09-29T05:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #9",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.40",
+    "destination_ip": "10.0.0.60"
+  },
+  {
+    "alert_id": "ALT-1010",
+    "timestamp": "2025-09-29T04:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #10",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.131",
+    "destination_ip": "10.0.0.119"
+  },
+  {
+    "alert_id": "ALT-1011",
+    "timestamp": "2025-09-28T06:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #11",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.93",
+    "destination_ip": "10.0.0.157"
+  },
+  {
+    "alert_id": "ALT-1012",
+    "timestamp": "2025-09-28T00:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #12",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.169",
+    "destination_ip": "10.0.0.171"
+  },
+  {
+    "alert_id": "ALT-1013",
+    "timestamp": "2025-09-30T16:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #13",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.121",
+    "destination_ip": "10.0.0.169"
+  },
+  {
+    "alert_id": "ALT-1014",
+    "timestamp": "2025-09-30T12:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #14",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.144",
+    "destination_ip": "10.0.0.250"
+  },
+  {
+    "alert_id": "ALT-1015",
+    "timestamp": "2025-09-29T03:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #15",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.178",
+    "destination_ip": "10.0.0.46"
+  },
+  {
+    "alert_id": "ALT-1016",
+    "timestamp": "2025-09-29T09:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #16",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.220",
+    "destination_ip": "10.0.0.42"
+  },
+  {
+    "alert_id": "ALT-1017",
+    "timestamp": "2025-09-30T14:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #17",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.138",
+    "destination_ip": "10.0.0.165"
+  },
+  {
+    "alert_id": "ALT-1018",
+    "timestamp": "2025-09-30T21:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #18",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.51",
+    "destination_ip": "10.0.0.49"
+  },
+  {
+    "alert_id": "ALT-1019",
+    "timestamp": "2025-09-29T14:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #19",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.150",
+    "destination_ip": "10.0.0.236"
+  },
+  {
+    "alert_id": "ALT-1020",
+    "timestamp": "2025-09-28T11:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #20",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.74",
+    "destination_ip": "10.0.0.49"
+  },
+  {
+    "alert_id": "ALT-1021",
+    "timestamp": "2025-09-29T17:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #21",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.98",
+    "destination_ip": "10.0.0.16"
+  },
+  {
+    "alert_id": "ALT-1022",
+    "timestamp": "2025-09-30T06:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #22",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.155",
+    "destination_ip": "10.0.0.49"
+  },
+  {
+    "alert_id": "ALT-1023",
+    "timestamp": "2025-09-30T02:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #23",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.207",
+    "destination_ip": "10.0.0.60"
+  },
+  {
+    "alert_id": "ALT-1024",
+    "timestamp": "2025-09-28T23:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #24",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.221",
+    "destination_ip": "10.0.0.161"
+  },
+  {
+    "alert_id": "ALT-1025",
+    "timestamp": "2025-09-28T11:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #25",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.156",
+    "destination_ip": "10.0.0.34"
+  },
+  {
+    "alert_id": "ALT-1026",
+    "timestamp": "2025-09-28T05:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #26",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.3",
+    "destination_ip": "10.0.0.66"
+  },
+  {
+    "alert_id": "ALT-1027",
+    "timestamp": "2025-09-30T04:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #27",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.59",
+    "destination_ip": "10.0.0.96"
+  },
+  {
+    "alert_id": "ALT-1028",
+    "timestamp": "2025-09-30T12:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #28",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.87",
+    "destination_ip": "10.0.0.190"
+  },
+  {
+    "alert_id": "ALT-1029",
+    "timestamp": "2025-09-29T21:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #29",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.188",
+    "destination_ip": "10.0.0.202"
+  },
+  {
+    "alert_id": "ALT-1030",
+    "timestamp": "2025-09-30T19:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #30",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.157",
+    "destination_ip": "10.0.0.182"
+  },
+  {
+    "alert_id": "ALT-1031",
+    "timestamp": "2025-09-29T18:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #31",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.167",
+    "destination_ip": "10.0.0.59"
+  },
+  {
+    "alert_id": "ALT-1032",
+    "timestamp": "2025-09-28T04:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #32",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.127",
+    "destination_ip": "10.0.0.153"
+  },
+  {
+    "alert_id": "ALT-1033",
+    "timestamp": "2025-09-27T22:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #33",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.33",
+    "destination_ip": "10.0.0.66"
+  },
+  {
+    "alert_id": "ALT-1034",
+    "timestamp": "2025-09-28T18:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #34",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.231",
+    "destination_ip": "10.0.0.145"
+  },
+  {
+    "alert_id": "ALT-1035",
+    "timestamp": "2025-09-28T16:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #35",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.118",
+    "destination_ip": "10.0.0.66"
+  },
+  {
+    "alert_id": "ALT-1036",
+    "timestamp": "2025-09-28T19:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #36",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.229",
+    "destination_ip": "10.0.0.61"
+  },
+  {
+    "alert_id": "ALT-1037",
+    "timestamp": "2025-09-28T21:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #37",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.147",
+    "destination_ip": "10.0.0.75"
+  },
+  {
+    "alert_id": "ALT-1038",
+    "timestamp": "2025-09-28T21:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #38",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.93",
+    "destination_ip": "10.0.0.30"
+  },
+  {
+    "alert_id": "ALT-1039",
+    "timestamp": "2025-09-28T02:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #39",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.66",
+    "destination_ip": "10.0.0.54"
+  },
+  {
+    "alert_id": "ALT-1040",
+    "timestamp": "2025-09-30T03:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #40",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.58",
+    "destination_ip": "10.0.0.107"
+  },
+  {
+    "alert_id": "ALT-1041",
+    "timestamp": "2025-09-30T06:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #41",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.30",
+    "destination_ip": "10.0.0.126"
+  },
+  {
+    "alert_id": "ALT-1042",
+    "timestamp": "2025-09-30T15:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #42",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.21",
+    "destination_ip": "10.0.0.90"
+  },
+  {
+    "alert_id": "ALT-1043",
+    "timestamp": "2025-09-29T05:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #43",
+    "command_line": "systeminfo | findstr \"OS\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.246",
+    "destination_ip": "10.0.0.106"
+  },
+  {
+    "alert_id": "ALT-1044",
+    "timestamp": "2025-09-27T23:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #44",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "cmd.exe",
+    "source_ip": "192.168.1.91",
+    "destination_ip": "10.0.0.211"
+  },
+  {
+    "alert_id": "ALT-1045",
+    "timestamp": "2025-09-30T01:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #45",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.65",
+    "destination_ip": "10.0.0.76"
+  },
+  {
+    "alert_id": "ALT-1046",
+    "timestamp": "2025-09-29T09:54:36.442002",
+    "severity": "Critical",
+    "description": "Suspicious activity detected #46",
+    "command_line": "schtasks /create /tn \"UpdateTask\"",
+    "process_name": "powershell.exe",
+    "source_ip": "192.168.1.44",
+    "destination_ip": "10.0.0.17"
+  },
+  {
+    "alert_id": "ALT-1047",
+    "timestamp": "2025-09-30T13:54:36.442002",
+    "severity": "Low",
+    "description": "Suspicious activity detected #47",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.146",
+    "destination_ip": "10.0.0.59"
+  },
+  {
+    "alert_id": "ALT-1048",
+    "timestamp": "2025-09-28T02:54:36.442002",
+    "severity": "High",
+    "description": "Suspicious activity detected #48",
+    "command_line": "mimikatz.exe \"privilege::debug\"",
+    "process_name": "mimikatz.exe",
+    "source_ip": "192.168.1.57",
+    "destination_ip": "10.0.0.145"
+  },
+  {
+    "alert_id": "ALT-1049",
+    "timestamp": "2025-09-29T21:54:36.442002",
+    "severity": "Medium",
+    "description": "Suspicious activity detected #49",
+    "command_line": "powershell -ep bypass -c \"VirtualAllocEx\"",
+    "process_name": "unknown.exe",
+    "source_ip": "192.168.1.132",
+    "destination_ip": "10.0.0.104"
+  }
+]

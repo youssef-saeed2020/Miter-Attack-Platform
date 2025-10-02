@@ -1,0 +1,233 @@
+<!-- app/templates/alert_enrichment.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-bell"></i> Alert Enrichment</h1>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Dashboard
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-upload"></i> Input Alert Data</h5>
+            </div>
+            <div class="card-body">
+                <form id="alertForm">
+                    <div class="mb-3">
+                        <label class="form-label">Alert Description</label>
+                        <input type="text" class="form-control" id="description" 
+                               placeholder="E.g., Suspicious process injection detected" 
+                               value="Suspicious process injection using PowerShell">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Command Line</label>
+                        <textarea class="form-control" id="commandLine" rows="3" 
+                                  placeholder="E.g., powershell -ep bypass -c VirtualAllocEx">powershell -ep bypass -c "VirtualAllocEx,WriteProcessMemory"</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Process Name</label>
+                        <input type="text" class="form-control" id="processName" 
+                               placeholder="E.g., powershell.exe" value="powershell.exe">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Severity</label>
+                        <select class="form-select" id="severity">
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High" selected>High</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary w-100" onclick="enrichAlert()">
+                        <i class="fas fa-magic"></i> Enrich Alert
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Sample Alerts -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-vial"></i> Sample Alerts</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" 
+                            onclick="loadSample('process_injection')">
+                        Process Injection
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" 
+                            onclick="loadSample('phishing')">
+                        Phishing Attachment
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" 
+                            onclick="loadSample('credential_dumping')">
+                        Credential Dumping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-search-plus"></i> Enriched Results</h5>
+            </div>
+            <div class="card-body">
+                <div id="results" class="text-center text-muted">
+                    <i class="fas fa-search fa-3x mb-3"></i>
+                    <p>Submit an alert to see MITRE ATT&CK enrichment results</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const sampleAlerts = {
+    process_injection: {
+        description: "Suspicious process injection detected",
+        commandLine: 'powershell -ep bypass -c "VirtualAllocEx,WriteProcessMemory,CreateRemoteThread"',
+        processName: "powershell.exe",
+        severity: "High"
+    },
+    phishing: {
+        description: "Suspicious email attachment executed",
+        commandLine: "rundll32.exe javascript:\\..\\mshtml,RunHTMLApplication javascript:alert('test')",
+        processName: "rundll32.exe",
+        severity: "Medium"
+    },
+    credential_dumping: {
+        description: "Potential credential dumping activity",
+        commandLine: "mimikatz.exe privilege::debug sekurlsa::logonpasswords",
+        processName: "mimikatz.exe",
+        severity: "Critical"
+    }
+};
+
+function loadSample(type) {
+    const sample = sampleAlerts[type];
+    document.getElementById('description').value = sample.description;
+    document.getElementById('commandLine').value = sample.commandLine;
+    document.getElementById('processName').value = sample.processName;
+    document.getElementById('severity').value = sample.severity;
+}
+
+async function enrichAlert() {
+    const alertData = {
+        description: document.getElementById('description').value,
+        command_line: document.getElementById('commandLine').value,
+        process_name: document.getElementById('processName').value,
+        severity: document.getElementById('severity').value
+    };
+    
+    try {
+        const response = await fetch('/api/enrich-alert', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(alertData)
+        });
+        
+        const result = await response.json();
+        displayResults(result);
+    } catch (error) {
+        displayError(error);
+    }
+}
+
+function displayResults(result) {
+    const resultsDiv = document.getElementById('results');
+    
+    if (result.error) {
+        resultsDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <h5><i class="fas fa-exclamation-triangle"></i> Error</h5>
+                <p>${result.error}</p>
+            </div>
+        `;
+        return;
+    }
+    
+    let techniquesHtml = '';
+    if (result.mitre_techniques && result.mitre_techniques.length > 0) {
+        techniquesHtml = result.mitre_techniques.map(tech => `
+            <div class="card mb-2 ${getRiskClass(tech.confidence)}">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <strong>${tech.technique_id}</strong>: ${tech.technique_name}
+                        <span class="badge bg-${getConfidenceBadge(tech.confidence)} float-end">
+                            ${tech.confidence}% Confidence
+                        </span>
+                    </h6>
+                    <p class="card-text">${tech.description}</p>
+                    <div class="mb-2">
+                        ${tech.tactics.map(tactic => `<span class="badge bg-secondary me-1">${tactic}</span>`).join('')}
+                    </div>
+                    <a href="${tech.url}" target="_blank" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-external-link-alt"></i> MITRE Details
+                    </a>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        techniquesHtml = '<div class="alert alert-warning">No MITRE ATT&CK techniques detected</div>';
+    }
+    
+    resultsDiv.innerHTML = `
+        <div class="alert alert-${getRiskAlertClass(result.risk_score)}">
+            <h5><i class="fas fa-chart-line"></i> Risk Assessment</h5>
+            <p><strong>Overall Risk Score:</strong> ${result.risk_score}/100</p>
+        </div>
+        
+        <h5>Detected Techniques</h5>
+        ${techniquesHtml}
+        
+        <div class="mt-3">
+            <h6>Original Alert</h6>
+            <pre class="bg-light p-2 rounded"><code>${JSON.stringify(result, null, 2)}</code></pre>
+        </div>
+    `;
+}
+
+function getRiskClass(confidence) {
+    if (confidence >= 80) return 'risk-high';
+    if (confidence >= 60) return 'risk-medium';
+    return 'risk-low';
+}
+
+function getConfidenceBadge(confidence) {
+    if (confidence >= 80) return 'danger';
+    if (confidence >= 60) return 'warning';
+    return 'success';
+}
+
+function getRiskAlertClass(riskScore) {
+    if (riskScore >= 80) return 'danger';
+    if (riskScore >= 60) return 'warning';
+    if (riskScore >= 40) return 'info';
+    return 'success';
+}
+
+function displayError(error) {
+    document.getElementById('results').innerHTML = `
+        <div class="alert alert-danger">
+            <h5><i class="fas fa-exclamation-triangle"></i> Request Failed</h5>
+            <p>${error.message || 'Unknown error occurred'}</p>
+        </div>
+    `;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,195 @@
+<!-- app/templates/threat_hunting.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-search"></i> Threat Hunting</h1>
+    <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Dashboard
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-filter"></i> Hunting Parameters</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Select Tactic</label>
+                    <select class="form-select" id="tacticSelect">
+                        <option value="">All Tactics</option>
+                        {% for tactic in tactics %}
+                        <option value="{{ tactic }}">{{ tactic }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Search Techniques</label>
+                    <input type="text" class="form-control" id="techniqueSearch" 
+                           placeholder="Search technique names or descriptions...">
+                </div>
+                
+                <button class="btn btn-primary w-100" onclick="generateHypotheses()">
+                    <i class="fas fa-bullseye"></i> Generate Hunting Hypotheses
+                </button>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-lightbulb"></i> Hunting Tips</h6>
+            </div>
+            <div class="card-body">
+                <ul class="small">
+                    <li>Focus on techniques with high adversary usage</li>
+                    <li>Consider your environment's specific risks</li>
+                    <li>Start with techniques you have detection coverage for</li>
+                    <li>Document your findings and hypotheses</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Hunting Hypotheses</h5>
+            </div>
+            <div class="card-body">
+                <div id="hypotheses" class="text-center text-muted">
+                    <i class="fas fa-search fa-3x mb-3"></i>
+                    <p>Configure parameters and generate hunting hypotheses to get started</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function generateHypotheses() {
+    const tactic = document.getElementById('tacticSelect').value;
+    const searchTerm = document.getElementById('techniqueSearch').value;
+    
+    // Show loading state
+    document.getElementById('hypotheses').innerHTML = `
+        <div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Generating hunting hypotheses...</p>
+        </div>
+    `;
+    
+    try {
+        let url = '/api/search';
+        if (searchTerm) {
+            url += `?q=${encodeURIComponent(searchTerm)}`;
+        }
+        
+        const response = await fetch(url);
+        const techniques = await response.json();
+        
+        // Filter by tactic if selected
+        let filteredTechniques = techniques;
+        if (tactic) {
+            filteredTechniques = techniques.filter(tech => 
+                tech.tactics && tech.tactics.includes(tactic)
+            );
+        }
+        
+        displayHypotheses(filteredTechniques);
+    } catch (error) {
+        displayError(error);
+    }
+}
+
+function displayHypotheses(techniques) {
+    const hypothesesDiv = document.getElementById('hypotheses');
+    
+    if (!techniques || techniques.length === 0) {
+        hypothesesDiv.innerHTML = `
+            <div class="alert alert-warning">
+                <h5><i class="fas fa-exclamation-triangle"></i> No Techniques Found</h5>
+                <p>Try adjusting your search criteria or select a different tactic.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const hypothesesHtml = techniques.map(tech => `
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <span class="badge bg-primary">${tech.technique_id}</span>
+                    ${tech.name}
+                </h5>
+                
+                <div class="mb-2">
+                    ${tech.tactics ? tech.tactics.map(tactic => 
+                        `<span class="badge bg-secondary me-1">${tactic}</span>`
+                    ).join('') : ''}
+                </div>
+                
+                <p class="card-text">${tech.description}</p>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-crosshairs"></i> Hunting Hypothesis</h6>
+                        <p class="small">Look for ${tech.name.toLowerCase()} in your environment by monitoring ${getDataSources(tech)}.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-shield-alt"></i> Recommended Actions</h6>
+                        <div class="small">
+                            <button class="btn btn-sm btn-outline-primary me-1" onclick="testDetection('${tech.technique_id}')">
+                                Test Detection
+                            </button>
+                            <a href="${tech.url}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                MITRE Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    hypothesesDiv.innerHTML = `
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> 
+            Generated ${techniques.length} hunting hypothesis${techniques.length !== 1 ? 'es' : ''}
+        </div>
+        ${hypothesesHtml}
+    `;
+}
+
+function getDataSources(technique) {
+    if (technique.data_sources && technique.data_sources.length > 0) {
+        return technique.data_sources.join(', ').toLowerCase();
+    }
+    return "process creation, command line execution, and network activity";
+}
+
+function testDetection(techniqueId) {
+    alert(`Testing detection for ${techniqueId}\n\nThis would typically:\n- Generate test alerts\n- Validate detection rules\n- Check logging coverage\n- Verify analyst response`);
+}
+
+function displayError(error) {
+    document.getElementById('hypotheses').innerHTML = `
+        <div class="alert alert-danger">
+            <h5><i class="fas fa-exclamation-triangle"></i> Failed to Generate Hypotheses</h5>
+            <p>${error.message || 'Unknown error occurred'}</p>
+        </div>
+    `;
+}
+
+// Generate initial hypotheses on page load
+document.addEventListener('DOMContentLoaded', function() {
+    generateHypotheses();
+});
+</script>
+{% endblock %}
